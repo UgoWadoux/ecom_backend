@@ -3,6 +3,12 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Blog;
+use App\Models\Category;
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\Service;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,5 +24,31 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        $users = User::factory(10)->create();
+        foreach ($users as $user){
+            Service::factory()
+                ->create([
+                    'user_id'=>$user->id
+                ]);
+            $order = Order::factory()
+                ->create([
+                    'user_id'=>$user->id
+                ]);
+            Blog::factory()
+                ->create([
+                    'user_id'=>$user->id
+                ]);
+
+        }
+        $categories = Category::factory(5)->create();
+        foreach ($categories as $category){
+            Product::factory()
+                ->hasAttached($order, ['quantity'=>1])
+                ->hasAttached($users, ['comment'=>'Ceci est un commentaire'])
+                ->create([
+                   'category_id'=>$category->id
+                ]);
+        }
+
     }
 }
