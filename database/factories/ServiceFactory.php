@@ -22,7 +22,7 @@ class ServiceFactory extends Factory
             'name'=>$this->faker->word(),
             'price'=>$this->faker->numberBetween(2,500),
             'area'=>$this->faker->city(),
-            'user_id'=>Str::uuid()
+//            'user_id'=>Str::uuid()
         ];
     }
 }

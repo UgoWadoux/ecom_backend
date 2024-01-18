@@ -19,7 +19,6 @@ class BlogFactory extends Factory
     {
         return [
             'content'=>$this->faker->sentence(10, true),
-            'user_id'=>Str::uuid()
         ];
     }
 }

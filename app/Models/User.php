@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,7 +14,7 @@ use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasUuids;
 
     /**
      * The attributes that are mass assignable.
@@ -26,16 +27,6 @@ class User extends Authenticatable
         'password',
     ];
 
-//    Defining the primary key as string
-    protected $keyType = 'string';
-//    Tell the model not to use the incrementing system
-    public $incrementing = false;
-    public static function booted(): void
-    {
-        static::creating(function ($model){
-            $model->id = Str::uuid();
-        });
-    }
 
 
 
@@ -58,7 +49,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
+    public function orders():HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
     public function services():HasMany
     {
         return $this->hasMany(Service::class);

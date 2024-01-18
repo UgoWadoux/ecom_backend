@@ -23,32 +23,55 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
-        // ]);
-        $users = User::factory(10)->create();
-        foreach ($users as $user){
-            Service::factory()
-                ->create([
-                    'user_id'=>$user->id
-                ]);
-            $order = Order::factory()
-                ->create([
-                    'user_id'=>$user->id
-                ]);
-            Blog::factory()
-                ->create([
-                    'user_id'=>$user->id
-                ]);
+//        // ]);
+//        $users = User::factory(10)->create();
+//        foreach ($users as $user){
+//            Service::factory()
+//                ->create([
+//                    'user_id'=>$user->id
+//                ]);
+//            $order = Order::factory()
+//                ->create([
+//                    'user_id'=>$user->id
+//                ]);
+//            Blog::factory()
+//                ->create([
+//                    'user_id'=>$user->id
+//                ]);
+//
+//        }
+//        $categories = Category::factory(5)->create();
+//        foreach ($categories as $category){
+//            Product::factory()
+//                ->hasAttached($order, ['quantity'=>1])
+//                ->hasAttached($users, ['comment'=>'Ceci est un commentaire'])
+//                ->create([
+//                   'category_id'=>$category->id
+//                ]);
+//        }
+//        $user = User::factory()->count(10);
+        $user = User::factory()->create();
 
-        }
-        $categories = Category::factory(5)->create();
-        foreach ($categories as $category){
-            Product::factory()
-                ->hasAttached($order, ['quantity'=>1])
-                ->hasAttached($users, ['comment'=>'Ceci est un commentaire'])
-                ->create([
-                   'category_id'=>$category->id
-                ]);
-        }
+        Service::factory()
+            ->count(3)
+            ->for($user)
+            ->create();
 
+        Blog::factory()
+            ->count(3)
+            ->for($user)
+            ->create();
+
+        $order = Order::factory()
+            ->count(3)
+            ->for($user)
+            ->create();
+        $category = Category::factory()->create();
+        Product::factory()
+            ->count(3)
+            ->for($category)
+            ->hasAttached($order, ['quantity'=>1])
+            ->hasAttached($user, ['comment'=>'Ceci est un commentaire'])
+            ->create();
     }
 }
