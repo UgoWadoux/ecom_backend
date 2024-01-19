@@ -12,7 +12,9 @@ class Category extends Model
 {
     use HasFactory, HasUuids;
 
-
+    protected $fillable = [
+        'name',
+    ];
     public function products():HasMany
     {
         return $this->hasMany(Product::class);

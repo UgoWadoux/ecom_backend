@@ -13,17 +13,24 @@ class Product extends Model
 {
     use HasFactory, HasUuids;
 
+    protected $fillable = [
+        'name',
+        'price',
+        'description',
+        'category_id'
+    ];
 
-
-    public function category():BelongsTo
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
-    public function orders():BelongsToMany
+
+    public function orders(): BelongsToMany
     {
         return $this->belongsToMany(Order::class)->withPivot('quantity');
     }
-    public function users():BelongsToMany
+
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class)->withPivot('comment');
     }
