@@ -33,3 +33,9 @@ Route::get('user/{id}',[\App\Http\Controllers\Api\UserController::class, 'getUse
 Route::post('user',[\App\Http\Controllers\Api\UserController::class, 'createUser']);
 Route::put('user/{id}',[\App\Http\Controllers\Api\UserController::class, 'updateUser']);
 Route::delete('user/{id}',[\App\Http\Controllers\Api\UserController::class, 'deleteUser']);
+
+Route::get('blogs',[\App\Http\Controllers\Api\BlogController::class, 'getBlogs']);
+Route::get('blog/{id}',[\App\Http\Controllers\Api\BlogController::class, 'getBlog']);
+Route::post('blog',[\App\Http\Controllers\Api\BlogController::class, 'createBlog']);
+Route::put('blog/{id}',[\App\Http\Controllers\Api\BlogController::class, 'updateBlog']);
+Route::delete('blog/{id}',[\App\Http\Controllers\Api\BlogController::class, 'deleteBlog']);

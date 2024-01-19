@@ -12,6 +12,11 @@ class Blog extends Model
 {
     use HasFactory, HasUuids;
 
+protected $fillable = [
+    'content',
+    'user_id',
+];
+
     public function user():BelongsTo
     {
         return $this->belongsTo(User::class);
