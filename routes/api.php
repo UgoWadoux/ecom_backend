@@ -25,6 +25,11 @@ Route::post('category',[\App\Http\Controllers\Api\CategoryController::class,'cre
 Route::put('category/{id}',[\App\Http\Controllers\Api\CategoryController::class,'modifyCategory']);
 Route::delete('category/{id}',[\App\Http\Controllers\Api\CategoryController::class,'deleteCategory']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+Route::get('users',[\App\Http\Controllers\Api\UserController::class, 'getUsers']);
+Route::get('user/{id}',[\App\Http\Controllers\Api\UserController::class, 'getUser']);
+Route::post('user',[\App\Http\Controllers\Api\UserController::class, 'createUser']);
+Route::put('user/{id}',[\App\Http\Controllers\Api\UserController::class, 'updateUser']);
+Route::delete('user/{id}',[\App\Http\Controllers\Api\UserController::class, 'deleteUser']);

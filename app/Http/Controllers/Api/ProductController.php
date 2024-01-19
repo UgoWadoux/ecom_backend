@@ -33,6 +33,7 @@ class ProductController extends Controller
 //        dd($product);
 //        Transforming the product to display the product with the ProductRessource
         $product = ProductRessource::make($product);
+
         return response()->json([
             'product'=>$product
         ]);
@@ -59,6 +60,7 @@ class ProductController extends Controller
 //        dd($product);
 //        Transforming the product to display the product with the ProductRessource
         $product = ProductRessource::make($product);
+
         return response()->json([
             'product'=>$product
         ]);
