@@ -12,15 +12,13 @@ class Service extends Model
 {
     use HasFactory, HasUuids;
 
-//    protected $keyType = 'string';
-////    Tell the model not to use the incrementing system
-//    public $incrementing = false;
-//    public static function booted(): void
-//    {
-//        static::creating(function ($model){
-//            $model->id = Str::uuid();
-//        });
-//    }
+
+protected $fillable = [
+    'user_id',
+    'name',
+    'price',
+    'area',
+];
 
     public function user():BelongsTo
     {

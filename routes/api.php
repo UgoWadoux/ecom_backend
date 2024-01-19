@@ -39,3 +39,9 @@ Route::get('blog/{id}',[\App\Http\Controllers\Api\BlogController::class, 'getBlo
 Route::post('blog',[\App\Http\Controllers\Api\BlogController::class, 'createBlog']);
 Route::put('blog/{id}',[\App\Http\Controllers\Api\BlogController::class, 'updateBlog']);
 Route::delete('blog/{id}',[\App\Http\Controllers\Api\BlogController::class, 'deleteBlog']);
+
+Route::get('services', [\App\Http\Controllers\Api\ServiceController::class, 'getServices']);
+Route::get('service/{id}', [\App\Http\Controllers\Api\ServiceController::class, 'getService']);
+Route::post('service', [\App\Http\Controllers\Api\ServiceController::class, 'createService']);
+Route::put('service/{id}', [\App\Http\Controllers\Api\ServiceController::class, 'updateService']);
+Route::delete('service/{id}', [\App\Http\Controllers\Api\ServiceController::class, 'deleteService']);
