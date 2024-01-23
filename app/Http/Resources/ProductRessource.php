@@ -19,11 +19,17 @@ class ProductRessource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'=>$this->resource->id,
-            'name'=>$this->resource->name,
-            'price'=>$this->resource->price,
-            'description'=>$this->resource->description,
-            'category'=> new CategoryRessource($this->resource->category)
+            'id' => $this->resource->id,
+            'name' => $this->resource->name,
+            'price' => $this->resource->price,
+            'description' => $this->resource->description,
+            'category' => new CategoryRessource($this->resource->category),
+            'quantity' => $this->whenPivotLoaded('order_product', function () {
+                return $this->pivot->quantity;
+            }),
+            'sum_products' => $this->whenPivotLoaded('order_product', function () {
+                return $this->pivot->quantity * $this->resource->price;
+            })
         ];
     }
 }

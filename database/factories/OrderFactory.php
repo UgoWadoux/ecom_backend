@@ -18,6 +18,7 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
+            'deliver'=>$this->faker->boolean
         ];
     }
 }

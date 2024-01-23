@@ -12,6 +12,10 @@ use Illuminate\Support\Str;
 class Order extends Model
 {
     use HasFactory, HasUuids;
+    protected $fillable = [
+        'user_id',
+        'deliver'
+    ];
 
     public function user():BelongsTo
     {

@@ -45,3 +45,9 @@ Route::get('service/{id}', [\App\Http\Controllers\Api\ServiceController::class, 
 Route::post('service', [\App\Http\Controllers\Api\ServiceController::class, 'createService']);
 Route::put('service/{id}', [\App\Http\Controllers\Api\ServiceController::class, 'updateService']);
 Route::delete('service/{id}', [\App\Http\Controllers\Api\ServiceController::class, 'deleteService']);
+
+Route::get('orders', [\App\Http\Controllers\Api\OrderController::class, 'getOrders']);
+Route::get('order/{id}', [\App\Http\Controllers\Api\OrderController::class, 'getOrder']);
+Route::post('order', [\App\Http\Controllers\Api\OrderController::class, 'createOrder']);
+Route::put('order/{id}', [\App\Http\Controllers\Api\OrderController::class, 'updateOrder']);
+Route::delete('order/{id}', [\App\Http\Controllers\Api\OrderController::class, 'deleteOrder']);
