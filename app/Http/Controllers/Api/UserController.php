@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function getUsers()
+    public function index()
     {
         $users = UserResource::collection(User::all());
 
@@ -18,7 +18,7 @@ class UserController extends Controller
             'users'=>$users
         ]);
     }
-    public function getUser($id)
+    public function show($id)
     {
         $user = new UserResource(User::find($id));
 
@@ -26,7 +26,7 @@ class UserController extends Controller
            'user'=>$user
         ]);
     }
-    public function createUser(UserRequest $request)
+    public function store(UserRequest $request)
     {
         $user = User::create($request->all());
         $user->save();
@@ -35,7 +35,7 @@ class UserController extends Controller
            'user'=>$user
         ]);
     }
-    public function updateUser($id, UserRequest $request)
+    public function update($id, UserRequest $request)
     {
         $user = User::find($id);
         $user->update($request->safe()->except('email'));
@@ -45,13 +45,13 @@ class UserController extends Controller
             'user'=>$user
         ]);
     }
-    public function deleteUser($id)
+    public function destroy($id)
     {
         $user = User::find($id);
         $user->delete();
 
         return response()->json([
-            'users'=>$this->getUsers()
+            'users'=>$this->index()
         ]);
     }
 }

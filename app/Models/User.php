@@ -66,6 +66,7 @@ class User extends Authenticatable
     }
     public function products():BelongsToMany
     {
-        return $this->belongsToMany(Product::class)->withPivot('comment');
+        return $this->belongsToMany(Product::class)->using(Comment::class);
     }
+
 }

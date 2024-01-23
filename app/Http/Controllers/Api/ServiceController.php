@@ -6,11 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ServiceRequest;
 use App\Http\Resources\ServiceResource;
 use App\Models\Service;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
-    public function getServices()
+    public function index():JsonResponse
     {
         $services = ServiceResource::collection(Service::all());
 
@@ -18,7 +19,7 @@ class ServiceController extends Controller
            'service'=>$services
         ]);
     }
-    public function getService($id)
+    public function show($id): JsonResponse
     {
         $service = Service::find($id);
         $service = ServiceResource::make($service);
@@ -27,7 +28,7 @@ class ServiceController extends Controller
            'service'=>$service
         ]);
     }
-    public function createService(ServiceRequest $request)
+    public function store(ServiceRequest $request): JsonResponse
     {
 
         $service = Service::create($request->all());
@@ -37,7 +38,7 @@ class ServiceController extends Controller
            'service'=>$service
         ]);
     }
-    public function updateService($id, ServiceRequest $request)
+    public function update($id, ServiceRequest $request): JsonResponse
     {
         $service = Service::find($id);
         $service->update($request->all());
@@ -48,7 +49,7 @@ class ServiceController extends Controller
            'service'=>$service
         ]);
     }
-    public function deleteService($id)
+    public function destroy($id): JsonResponse
     {
         $service = Service::find($id);
         $service->delete();

@@ -19,7 +19,7 @@ class ProductController extends Controller
             'products'=>$products
         ]);
     }
-    public function createProduct(ProductRequest $request)
+    public function store(ProductRequest $request):JsonResponse
     {
 //       Getting the category from the id
         $category = Category::where('name', $request->input('category'))->first();
@@ -39,7 +39,7 @@ class ProductController extends Controller
         ]);
     }
 
-    public function findProduct($id)
+    public function show($id): JsonResponse
     {
         $product = new ProductRessource(Product::find($id));
 //        dd($product);
@@ -48,7 +48,7 @@ class ProductController extends Controller
             "product"=>$product
         ]);
     }
-    public function modifyProduct($id, ProductRequest $request)
+    public function update($id, ProductRequest $request): JsonResponse
     {
         $product = Product::find($id);
         $category = Category::where('name', $request->input('category'))->first();
@@ -66,7 +66,7 @@ class ProductController extends Controller
         ]);
     }
 
-    public function deleteProduct($id): JsonResponse
+    public function destroy($id): JsonResponse
     {
         $product = Product::find($id);
         $product->delete();

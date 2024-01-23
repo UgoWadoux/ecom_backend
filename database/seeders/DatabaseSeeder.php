@@ -18,38 +18,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-//        // ]);
-//        $users = User::factory(10)->create();
-//        foreach ($users as $user){
-//            Service::factory()
-//                ->create([
-//                    'user_id'=>$user->id
-//                ]);
-//            $order = Order::factory()
-//                ->create([
-//                    'user_id'=>$user->id
-//                ]);
-//            Blog::factory()
-//                ->create([
-//                    'user_id'=>$user->id
-//                ]);
-//
-//        }
-//        $categories = Category::factory(5)->create();
-//        foreach ($categories as $category){
-//            Product::factory()
-//                ->hasAttached($order, ['quantity'=>1])
-//                ->hasAttached($users, ['comment'=>'Ceci est un commentaire'])
-//                ->create([
-//                   'category_id'=>$category->id
-//                ]);
-//        }
-//        $user = User::factory()->count(10);
         $user = User::factory()->create();
 
         Service::factory()

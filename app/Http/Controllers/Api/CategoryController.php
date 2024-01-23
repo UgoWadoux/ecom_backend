@@ -7,11 +7,12 @@ use App\Http\Requests\CategoryRequest;
 use App\Http\Resources\CategoryRessource;
 use App\Http\Resources\ProductRessource;
 use App\Models\Category;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function getCategories()
+    public function index(): JsonResponse
     {
         $categories = CategoryRessource::collection(Category::all());
 
@@ -19,7 +20,7 @@ class CategoryController extends Controller
            'categories'=>$categories
         ]);
     }
-    public function getCategory($id)
+    public function show($id): JsonResponse
     {
         $category = new CategoryRessource(Category::find($id));
         $category = CategoryRessource::make($category);
@@ -28,7 +29,7 @@ class CategoryController extends Controller
             'category'=>$category
         ]);
     }
-    public function createCategory(CategoryRequest $request)
+    public function store(CategoryRequest $request): JsonResponse
     {
         $category = new Category();
         $category->name = $request->input('name');
@@ -39,7 +40,7 @@ class CategoryController extends Controller
             'category'=>$category
         ]);
     }
-    public function modifyCategory($id, CategoryRequest $request)
+    public function update($id, CategoryRequest $request): JsonResponse
     {
         $category = Category::find($id);
         $category->name = $request->input('name');
@@ -50,7 +51,7 @@ class CategoryController extends Controller
             'category'=>$category
         ]);
     }
-    public function deleteCategory($id)
+    public function destroy($id): JsonResponse
     {
         $category = Category::find($id);
         $category->delete();

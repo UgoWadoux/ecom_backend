@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -25,7 +26,8 @@ class OrderResource extends JsonResource
             'deliver' => $this->resource->deliver,
             'user' => new UserResource($this->resource->user),
             'products' => ProductRessource::collection($this->resource->products),
-            'order_sum' => $order_sum
+            'order_sum' => $order_sum,
+            'service' => new ServiceResource($this->resource->service)
         ];
     }
 }

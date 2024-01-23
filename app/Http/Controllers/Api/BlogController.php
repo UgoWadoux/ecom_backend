@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
-    public function getBlogs()
+    public function index()
     {
         $blogs = BlogResource::collection(Blog::all());
 
@@ -20,7 +20,7 @@ class BlogController extends Controller
             'blogs'=>$blogs
         ]);
     }
-    public function getBlog($id)
+    public function show($id)
     {
         $blog = BlogResource::make(Blog::find($id));
 
@@ -28,7 +28,7 @@ class BlogController extends Controller
             'blog'=>$blog
         ]);
     }
-    public function createBlog(BlogRequest $request)
+    public function store(BlogRequest $request)
     {
         $blog = Blog::create($request->all());
         $blog = BlogResource::make($blog);
@@ -37,7 +37,7 @@ class BlogController extends Controller
             'blog'=>$blog
         ]);
     }
-    public function updateBlog($id, BlogRequest $request)
+    public function update($id, BlogRequest $request)
     {
         $blog = Blog::find($id);
         $blog->update($request->all());
@@ -48,7 +48,7 @@ class BlogController extends Controller
             'blog'=>$blog
         ]);
     }
-    public function deleteBlog($id)
+    public function destroy($id)
     {
         $blog = Blog::find($id);
         $blog->delete();

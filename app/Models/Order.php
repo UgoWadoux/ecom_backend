@@ -14,7 +14,8 @@ class Order extends Model
     use HasFactory, HasUuids;
     protected $fillable = [
         'user_id',
-        'deliver'
+        'deliver',
+        'service_id'
     ];
 
     public function user():BelongsTo
@@ -24,5 +25,9 @@ class Order extends Model
     public function products():BelongsToMany
     {
         return $this->belongsToMany(Product::class)->withPivot('quantity');
+    }
+    public function service ():BelongsTo
+    {
+        return $this->belongsTo(Service::class);
     }
 }

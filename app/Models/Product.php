@@ -32,6 +32,6 @@ class Product extends Model
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class)->withPivot('comment');
+        return $this->belongsToMany(User::class)->using(Comment::class);
     }
 }

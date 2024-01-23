@@ -2,12 +2,20 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class Comment extends Model
+class Comment extends Pivot
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
+    protected $fillable = [
+        'id',
+        'product_id',
+        'user_id',
+        'comment'
+    ];
+    protected $table = 'product_user';
 
 }
