@@ -8,11 +8,12 @@ use App\Http\Resources\BlogResource;
 use App\Http\Resources\UserResource;
 use App\Models\Blog;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
-    public function index()
+    public function index(): JsonResponse
     {
         $blogs = BlogResource::collection(Blog::all());
 
@@ -20,7 +21,7 @@ class BlogController extends Controller
             'blogs'=>$blogs
         ]);
     }
-    public function show($id)
+    public function show($id): JsonResponse
     {
         $blog = BlogResource::make(Blog::find($id));
 
@@ -28,7 +29,7 @@ class BlogController extends Controller
             'blog'=>$blog
         ]);
     }
-    public function store(BlogRequest $request)
+    public function store(BlogRequest $request): JsonResponse
     {
         $blog = Blog::create($request->all());
         $blog = BlogResource::make($blog);
@@ -37,7 +38,7 @@ class BlogController extends Controller
             'blog'=>$blog
         ]);
     }
-    public function update($id, BlogRequest $request)
+    public function update($id, BlogRequest $request): JsonResponse
     {
         $blog = Blog::find($id);
         $blog->update($request->all());
@@ -48,7 +49,7 @@ class BlogController extends Controller
             'blog'=>$blog
         ]);
     }
-    public function destroy($id)
+    public function destroy($id): JsonResponse
     {
         $blog = Blog::find($id);
         $blog->delete();

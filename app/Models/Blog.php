@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 
+/**
+ * @mixin IdeHelperBlog
+ */
 class Blog extends Model
 {
     use HasFactory, HasUuids;

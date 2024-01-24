@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
+/**
+ * @mixin IdeHelperCategory
+ */
 class Category extends Model
 {
     use HasFactory, HasUuids;

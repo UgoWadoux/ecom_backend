@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 
+/**
+ * @mixin IdeHelperOrder
+ */
 class Order extends Model
 {
     use HasFactory, HasUuids;
