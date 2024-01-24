@@ -1,5 +1,13 @@
 <?php
 
+use App\Http\Controllers\Api\BlogController;
+use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\ServiceController;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Auth\LoginRegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,12 +25,64 @@ use Illuminate\Support\Facades\Route;
 //Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //    return $request->user();
 //});
-Route::apiResource('product', \App\Http\Controllers\Api\ProductController::class);
-Route::apiResource('category', \App\Http\Controllers\Api\CategoryController::class);
-Route::apiResource('user', \App\Http\Controllers\Api\UserController::class);
-Route::apiResource('blog', \App\Http\Controllers\Api\BlogController::class);
-Route::apiResource('service', \App\Http\Controllers\Api\ServiceController::class);
-Route::apiResource('order', \App\Http\Controllers\Api\OrderController::class);
-Route::apiResource('comment', \App\Http\Controllers\Api\CommentController::class);
+
+Route::group(['middleware'=>'auth:sanctum'], function (){
+    Route::apiResource('order', OrderController::class);
+    Route::apiResource('user', UserController::class);
+
+    Route::post('category', [CategoryController::class, 'store']);
+    Route::put('category/{id}', [CategoryController::class, 'update']);
+    Route::get('category/{id}', [CategoryController::class, 'destroy']);
+
+    Route::post('product', [ProductController::class, 'store']);
+    Route::put('product/{id}', [ProductController::class, 'update']);
+    Route::get('product/{id}', [ProductController::class, 'destroy']);
+
+    Route::post('blog', [BlogController::class, 'store']);
+    Route::put('blog/{id}', [BlogController::class, 'update']);
+    Route::get('blog/{id}', [BlogController::class, 'destroy']);
+
+    Route::post('service', [ServiceController::class, 'store']);
+    Route::put('service/{id}', [ServiceController::class, 'update']);
+    Route::get('service/{id}', [ServiceController::class, 'destroy']);
+
+    Route::post('comment', [CommentController::class, 'store']);
+    Route::put('comment/{id}', [CommentController::class, 'update']);
+    Route::get('comment/{id}', [CommentController::class, 'destroy']);
+});
+// Public routes of authentication
+Route::controller(LoginRegisterController::class)->group(function() {
+    Route::post('/register', 'register');
+    Route::post('/login', 'login');
+});
+// Public routes for product
+Route::controller(ProductController::class)->group(function (){
+   Route::get('product', 'index');
+   Route::get('product/{id}', 'show');
+});
+// Public routes for category
+Route::controller(CategoryController::class)->group(function (){
+    Route::get('category', 'index');
+    Route::get('category/{id}', 'show');
+});
+// Public routes for blog
+Route::controller(BlogController::class)->group(function (){
+    Route::get('blog', 'index');
+    Route::get('blog/{id}', 'show');
+});
+// Public routes for service
+Route::controller(ServiceController::class)->group(function (){
+    Route::get('service',  'index');
+    Route::get('service/{id}',  'show');
+});
+// Public routes for comment
+Route::controller(CommentController::class)->group(function (){
+    Route::get('comment', 'index');
+    Route::get('comment/{id}', 'show');
+});
+
+
+
+
 
 
