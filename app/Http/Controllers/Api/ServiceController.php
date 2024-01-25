@@ -28,10 +28,10 @@ class ServiceController extends Controller
            'service'=>$service
         ]);
     }
-    public function store(ServiceRequest $request): JsonResponse
+    public function store(ServiceRequest $request, Service $service): JsonResponse
     {
-
-        $service = Service::create($request->all());
+        $this->authorize('create', $service);
+        $service = $service::create($request->all());
         $service = ServiceResource::make($service);
 
         return response()->json([
@@ -41,6 +41,7 @@ class ServiceController extends Controller
     public function update($id, ServiceRequest $request): JsonResponse
     {
         $service = Service::find($id);
+        $this->authorize('update', $service);
         $service->update($request->all());
         $service->save();
         $service = ServiceResource::make($service);
@@ -52,10 +53,11 @@ class ServiceController extends Controller
     public function destroy($id): JsonResponse
     {
         $service = Service::find($id);
+        $this->authorize('delete', $service);
         $service->delete();
 
         return response()->json([
-           'services'=>$this->getServices(),
+           'services'=>$this->index(),
         ]);
     }
 }

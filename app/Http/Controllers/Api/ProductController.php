@@ -19,12 +19,13 @@ class ProductController extends Controller
             'products'=>$products
         ]);
     }
-    public function store(ProductRequest $request):JsonResponse
+    public function store(ProductRequest $request, Product $product):JsonResponse
     {
+        $this->authorize('create', $product);
 //       Getting the category from the id
         $category = Category::where('name', $request->input('category'))->first();
 //       Creating a new product and initializing it
-        $product = new Product;
+//        $product = new Product;
         $product->name = $request->input('name');
         $product->price = $request->input('price');
         $product->description = $request->input('description');
@@ -51,6 +52,7 @@ class ProductController extends Controller
     public function update($id, ProductRequest $request): JsonResponse
     {
         $product = Product::find($id);
+        $this->authorize('update', $product);
         $category = Category::where('name', $request->input('category'))->first();
         $product->name = $request->input('name');
         $product->price = $request->input('price');
@@ -69,6 +71,7 @@ class ProductController extends Controller
     public function destroy($id): JsonResponse
     {
         $product = Product::find($id);
+        $this->authorize('delete', $product);
         $product->delete();
         $products = ProductRessource::collection(Product::all());
 

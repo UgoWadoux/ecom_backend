@@ -13,7 +13,7 @@ class UserController extends Controller
     public function index()
     {
         $users = UserResource::collection(User::all());
-
+        $this->authorize('viewAny', $users);
         return response()->json([
             'users'=>$users
         ]);
@@ -21,7 +21,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = new UserResource(User::find($id));
-
+        $this->authorize('view', $user);
         return response()->json([
            'user'=>$user
         ]);
@@ -30,7 +30,6 @@ class UserController extends Controller
     {
         $user = User::create($request->all());
         $user->save();
-
         return response()->json([
            'user'=>$user
         ]);
@@ -38,6 +37,8 @@ class UserController extends Controller
     public function update($id, UserRequest $request)
     {
         $user = User::find($id);
+        $this->authorize('update', $user);
+
         $user->update($request->safe()->except('email'));
         $user->save();
 
@@ -48,6 +49,8 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
+        $this->authorize('delete', $user);
+
         $user->delete();
 
         return response()->json([
