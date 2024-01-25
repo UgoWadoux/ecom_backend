@@ -16,7 +16,7 @@ class BlogController extends Controller
     public function index(): JsonResponse
     {
         $blogs = BlogResource::collection(Blog::all());
-
+        $this->authorize('viewAny', $blogs);
         return response()->json([
             'blogs'=>$blogs
         ]);
@@ -24,14 +24,15 @@ class BlogController extends Controller
     public function show($id): JsonResponse
     {
         $blog = BlogResource::make(Blog::find($id));
-
+        $this->authorize('view', $blog);
         return response()->json([
             'blog'=>$blog
         ]);
     }
-    public function store(BlogRequest $request): JsonResponse
+    public function store(BlogRequest $request, Blog $blog): JsonResponse
     {
-        $blog = Blog::create($request->all());
+        $this->authorize('create', $blog);
+        $blog = $blog::create($request->all());
         $blog = BlogResource::make($blog);
 
         return response()->json([
@@ -41,6 +42,7 @@ class BlogController extends Controller
     public function update($id, BlogRequest $request): JsonResponse
     {
         $blog = Blog::find($id);
+        $this->authorize('update', $blog);
         $blog->update($request->all());
         $blog->save();
         $blog = BlogResource::make($blog);
@@ -52,6 +54,7 @@ class BlogController extends Controller
     public function destroy($id): JsonResponse
     {
         $blog = Blog::find($id);
+        $this->authorize('delete', $blog);
         $blog->delete();
 
         $blogs = BlogResource::collection(Blog::all());

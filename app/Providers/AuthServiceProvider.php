@@ -3,12 +3,14 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Service;
 use App\Models\User;
+use App\Policies\BlogPolicy;
 use App\Policies\CategoryPolicy;
 use App\Policies\CommentPolicy;
 use App\Policies\OrderPolicy;
@@ -31,7 +33,7 @@ class AuthServiceProvider extends ServiceProvider
         Order::class => OrderPolicy::class,
         Comment::class => CommentPolicy::class,
         Category::class => CategoryPolicy::class,
-
+        Blog::class => BlogPolicy::class,
     ];
 
     /**
