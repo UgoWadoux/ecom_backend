@@ -22,8 +22,8 @@ class BlogRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'content'=>['required'],
-            'user_id'=>['required'],
+            'content'=>['required', 'string'],
+            'user_id'=>['required', 'uuid'],
         ];
     }
 }

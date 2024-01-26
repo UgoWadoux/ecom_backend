@@ -22,10 +22,10 @@ class ServiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id'=>['required'],
-            'name'=>['required'],
-            'price'=>['required'],
-            'area'=>['required'],
+            'user_id'=>['required', 'uuid'],
+            'name'=>['required', 'string'],
+            'price'=>['required', 'decimal:0,2'],
+            'area'=>['required', 'string'],
         ];
     }
 }

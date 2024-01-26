@@ -22,10 +22,10 @@ class OrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'deliver'=>['required'],
-            'user_id'=>['required'],
-            'products'=>['nullable'],
-            'service_id'=>['string']
+            'deliver'=>['required', 'boolean'],
+            'user_id'=>['required', 'uuid'],
+            'products'=>['nullable', 'string'],
+            'service_id'=>['string', 'uuid']
         ];
     }
 }

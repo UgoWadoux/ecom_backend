@@ -22,9 +22,9 @@ class CommentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id'=>['required'],
-            'product_id'=>['required'],
-            'comment'=>['required']
+            'user_id'=>['required', 'uuid'],
+            'product_id'=>['required', 'uuid'],
+            'comment'=>['required', 'uuid']
         ];
     }
 }
