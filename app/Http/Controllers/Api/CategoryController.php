@@ -14,46 +14,59 @@ class CategoryController extends Controller
 {
     public function index(): JsonResponse
     {
+//        Checking for authorization
+        $this->authorize('showAny', Category::class);
+
         $categories = CategoryRessource::collection(Category::all());
-        $this->authorize('showAny', $categories);
+
         return response()->json([
-           'categories'=>$categories
+            'categories' => $categories
         ]);
     }
+
     public function show($id): JsonResponse
     {
+//        Checking for authorization
+        $this->authorize('show', Category::class);
+
         $category = new CategoryRessource(Category::find($id));
-        $this->authorize('show', $category);
         $category = CategoryRessource::make($category);
 
         return response()->json([
-            'category'=>$category
+            'category' => $category
         ]);
     }
+
     public function store(CategoryRequest $request): JsonResponse
     {
+//        Checking for authorization
+        $this->authorize('create', Category::class);
+
         $category = new Category();
-        $this->authorize('create', $category);
         $category->name = $request->input('name');
         $category->save();
         $category = CategoryRessource::make($category);
 
         return response()->json([
-            'category'=>$category
+            'category' => $category
         ]);
     }
+
     public function update($id, CategoryRequest $request): JsonResponse
     {
+//        Checking for authorization
+        $this->authorize('update', Category::class);
+
         $category = Category::find($id);
-        $this->authorize('update', $category);
         $category->name = $request->input('name');
         $category->save();
         $category = CategoryRessource::make($category);
 
         return response()->json([
-            'category'=>$category
+            'category' => $category
         ]);
     }
+
     public function destroy($id): JsonResponse
     {
         $category = Category::find($id);
@@ -63,7 +76,7 @@ class CategoryController extends Controller
         $categories = CategoryRessource::collection(Category::all());
 
         return response()->json([
-            'categories'=>$categories
+            'categories' => $categories
         ]);
     }
 }

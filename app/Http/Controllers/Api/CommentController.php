@@ -11,54 +11,67 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    public function index():JsonResponse
+    public function index(): JsonResponse
     {
+//        Checking for authorization
+        $this->authorize('viewAny', Comment::class);
+
         $comments = CommentResource::collection(Comment::all());
-        $this->authorize('viewAny', $comments);
 
         return response()->json([
-           'comments'=>$comments
+            'comments' => $comments
         ]);
     }
-    public function show($id, Comment $comment): JsonResponse
+
+    public function show($id): JsonResponse
     {
-        $this->authorize('view', $comment);
-        $comment = CommentResource::make($comment::find($id));
+//        Checking for authorization
+        $this->authorize('view', Comment::class);
+
+        $comment = CommentResource::make(Comment::find($id));
 
         return response()->json([
-           'comment'=>$comment
+            'comment' => $comment
         ]);
     }
-    public function store(CommentRequest $request, Comment $comment): JsonResponse
+
+    public function store(CommentRequest $request): JsonResponse
     {
-        $this->authorize('create', $comment);
-        $comment = $comment::create($request->all());
+//        Checking for authorization
+        $this->authorize('create', Comment::class);
+
+        $comment = Comment::create($request->all());
         $comment = CommentResource::make($comment);
 
         return response()->json([
-           'comment'=>$comment
+            'comment' => $comment
         ]);
     }
-    public function update($id, CommentRequest $request, Comment $comment): JsonResponse
+
+    public function update($id, CommentRequest $request): JsonResponse
     {
-        $this->authorize('update', $comment);
-        $comment = $comment::find($id);
+//        Checking for authorization
+        $this->authorize('update', Comment::class);
+
+        $comment = Comment::find($id);
         $comment->update($request->all());
         $comment->save();
         $comment = CommentResource::make($comment);
 
         return response()->json([
-           'comment'=>$comment
+            'comment' => $comment
         ]);
     }
-    public function destroy($id, Comment $comment): JsonResponse
+
+    public function destroy($id): JsonResponse
     {
-        $this->authorize('delete', $comment);
+//        Checking for authorization
+        $this->authorize('delete', Comment::class);
         $comment = Comment::find($id);
         $comment->delete();
 
         return response()->json([
-           'comments'=>$this->index()
+            'comments' => $this->index()
         ]);
     }
 }

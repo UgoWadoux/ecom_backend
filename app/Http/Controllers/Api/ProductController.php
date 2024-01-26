@@ -14,18 +14,25 @@ class ProductController extends Controller
 {
     public function index(): JsonResponse
     {
+//        Checking for authorization
+        $this->authorize('viewAny', Product::class);
+
         $products = ProductRessource::collection(Product::all());
+
         return response()->json([
-            'products'=>$products
+            'products' => $products
         ]);
     }
-    public function store(ProductRequest $request, Product $product):JsonResponse
+
+    public function store(ProductRequest $request): JsonResponse
     {
-        $this->authorize('create', $product);
+//        Checking for authorization
+        $this->authorize('create', Product::class);
+
 //       Getting the category from the id
         $category = Category::where('name', $request->input('category'))->first();
 //       Creating a new product and initializing it
-//        $product = new Product;
+        $product = new Product;
         $product->name = $request->input('name');
         $product->price = $request->input('price');
         $product->description = $request->input('description');
@@ -36,47 +43,54 @@ class ProductController extends Controller
         $product = ProductRessource::make($product);
 
         return response()->json([
-            'product'=>$product
+            'product' => $product
         ]);
     }
 
     public function show($id): JsonResponse
     {
+//        Checking for authorization
+        $this->authorize('view', Product::class);
+
         $product = new ProductRessource(Product::find($id));
 //        dd($product);
 
         return response()->json([
-            "product"=>$product
+            "product" => $product
         ]);
     }
+
     public function update($id, ProductRequest $request): JsonResponse
     {
+//        Checking for authorization
+        $this->authorize('update', Product::class);
+
         $product = Product::find($id);
-        $this->authorize('update', $product);
         $category = Category::where('name', $request->input('category'))->first();
         $product->name = $request->input('name');
         $product->price = $request->input('price');
         $product->description = $request->input('description');
         $product->category()->associate($category);
         $product->save();
-//        dd($product);
 //        Transforming the product to display the product with the ProductRessource
         $product = ProductRessource::make($product);
 
         return response()->json([
-            'product'=>$product
+            'product' => $product
         ]);
     }
 
     public function destroy($id): JsonResponse
     {
+//        Checking for authorization
+        $this->authorize('delete', Product::class);
+
         $product = Product::find($id);
-        $this->authorize('delete', $product);
         $product->delete();
         $products = ProductRessource::collection(Product::all());
 
         return response()->json([
-            'products'=>$products
+            'products' => $products
         ]);
     }
 }

@@ -12,49 +12,65 @@ class UserController extends Controller
 {
     public function index()
     {
+//        Checking for authorization
+        $this->authorize('viewAny', User::class);
+
         $users = UserResource::collection(User::all());
-        $this->authorize('viewAny', $users);
+
         return response()->json([
-            'users'=>$users
+            'users' => $users
         ]);
     }
+
     public function show($id)
     {
+//        Checking for authorization
+        $this->authorize('view', User::class);
+
         $user = new UserResource(User::find($id));
-        $this->authorize('view', $user);
+
         return response()->json([
-           'user'=>$user
+            'user' => $user
         ]);
     }
+
     public function store(UserRequest $request)
     {
+//        Checking for authorization
+        $this->authorize('create', User::class);
+
         $user = User::create($request->all());
         $user->save();
+
         return response()->json([
-           'user'=>$user
+            'user' => $user
         ]);
     }
+
     public function update($id, UserRequest $request)
     {
-        $user = User::find($id);
-        $this->authorize('update', $user);
+//        Checking for authorization
+        $this->authorize('update', User::class);
 
+        $user = User::find($id);
         $user->update($request->safe()->except('email'));
         $user->save();
 
         return response()->json([
-            'user'=>$user
+            'user' => $user
         ]);
     }
+
     public function destroy($id)
     {
-        $user = User::find($id);
-        $this->authorize('delete', $user);
+//        Checking for authorization
+        $this->authorize('delete', User::class);
 
+        $user = User::find($id);
         $user->delete();
 
         return response()->json([
-            'users'=>$this->index()
+            'users' => $this->index()
         ]);
     }
 }

@@ -15,52 +15,67 @@ class BlogController extends Controller
 {
     public function index(): JsonResponse
     {
+//        Checking for authorization
+        $this->authorize('viewAny', Blog::class);
+
         $blogs = BlogResource::collection(Blog::all());
-        $this->authorize('viewAny', $blogs);
+
         return response()->json([
-            'blogs'=>$blogs
+            'blogs' => $blogs
         ]);
     }
+
     public function show($id): JsonResponse
     {
+//        Checking for authorization
+        $this->authorize('view', Blog::class);
+
         $blog = BlogResource::make(Blog::find($id));
-        $this->authorize('view', $blog);
+
         return response()->json([
-            'blog'=>$blog
+            'blog' => $blog
         ]);
     }
-    public function store(BlogRequest $request, Blog $blog): JsonResponse
+
+    public function store(BlogRequest $request): JsonResponse
     {
-        $this->authorize('create', $blog);
-        $blog = $blog::create($request->all());
+//        Checking for authorization
+        $this->authorize('create', Blog::class);
+
+        $blog = Blog::create($request->all());
         $blog = BlogResource::make($blog);
 
         return response()->json([
-            'blog'=>$blog
+            'blog' => $blog
         ]);
     }
+
     public function update($id, BlogRequest $request): JsonResponse
     {
+//        Checking for authorization
+        $this->authorize('update', Blog::class);
+
         $blog = Blog::find($id);
-        $this->authorize('update', $blog);
         $blog->update($request->all());
         $blog->save();
         $blog = BlogResource::make($blog);
 
         return response()->json([
-            'blog'=>$blog
+            'blog' => $blog
         ]);
     }
+
     public function destroy($id): JsonResponse
     {
-        $blog = Blog::find($id);
-        $this->authorize('delete', $blog);
-        $blog->delete();
+//        Checking for authorization
+        $this->authorize('delete', Blog::class);
 
+        $blog = Blog::find($id);
+        $blog->delete();
         $blogs = BlogResource::collection(Blog::all());
 
         return response()->json([
-           'blogs'=>$blogs
+            'blogs' => $blogs
         ]);
     }
 }

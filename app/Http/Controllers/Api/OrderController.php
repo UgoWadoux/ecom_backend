@@ -12,9 +12,9 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    public function index(Order $order):JsonResponse
+    public function index(Order $order): JsonResponse
     {
-        $this->authorize('viewAny', $order);
+        $this->authorize('viewAny', Order::class);
         $orders = OrderResource::collection($order::all());
 
 
@@ -25,18 +25,25 @@ class OrderController extends Controller
 
     public function show($id): JsonResponse
     {
-        $order = OrderResource::make(Order::find($id));
-        $this->authorize('view', $order);
+//        Checking for authorization
+        $this->authorize('view', Order::class);
+
+        $order = Order::find($id);
+        $orderResource = OrderResource::make(Order::find($id));
+
         return response()->json([
-            'order' => $order
+            'order' => $orderResource
         ]);
     }
 
-    public function store(OrderRequest $request, Order $order)
+    public function store(OrderRequest $request): JsonResponse
     {
-        $this->authorize('create', $order);
-        $order = $order::create($request->safe()->except('products'));
-        if (empty($order->service)){
+//        Checking for authorization
+        $this->authorize('create', Order::class);
+
+        $order = Order::create($request->safe()->except('products'));
+
+        if (empty($order->service)) {
             $products = $request->input('products');
             foreach ($products as $product) {
                 $productId = $product['id'];
@@ -44,18 +51,23 @@ class OrderController extends Controller
                 $order->products()->attach($productId, ['quantity' => $quantity]);
             }
         }
+
         $order = OrderResource::make($order);
+
         return response()->json([
             'order' => $order
         ]);
     }
 
-    public function update($id, OrderRequest $request, Order $order)
+    public function update($id, OrderRequest $request): JsonResponse
     {
-        $this->authorize('update', $order);
-        $order = $order::find($id);
+//        Checking for authorization
+        $this->authorize('update', Order::class);
+
+        $order = Order::find($id);
         $order->update($request->safe()->except('products'));
-        if (empty($order->service)){
+
+        if (empty($order->service)) {
             $products = $request->input('products');
             foreach ($products as $product) {
                 $productId = $product['id'];
@@ -63,6 +75,7 @@ class OrderController extends Controller
                 $order->products()->attach($productId, ['quantity' => $quantity]);
             }
         }
+
         $order->save();
         $order = OrderResource::make($order);
 
@@ -71,9 +84,11 @@ class OrderController extends Controller
         ]);
     }
 
-    public function destroy($id, Order $order)
+    public function destroy($id, Order $order): JsonResponse
     {
-        $this->authorize('delete', $order);
+//        Checking for authorization
+        $this->authorize('delete', Order::class);
+
         $order = Order::find($id);
         $order->delete();
         $orders = OrderResource::collection(Order::all());
