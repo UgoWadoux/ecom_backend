@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\CanResetPassword;
+
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Str;
 
@@ -17,7 +19,7 @@ use Illuminate\Support\Str;
  */
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasUuids;
+    use HasApiTokens, HasFactory, Notifiable, HasUuids, \Illuminate\Auth\Passwords\CanResetPassword;
 
     /**
      * The attributes that are mass assignable.

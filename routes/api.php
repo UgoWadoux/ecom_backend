@@ -2,14 +2,18 @@
 
 use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\CodeCheckController;
 use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\ForgotPasswordController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\ResetPasswordController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Auth\LoginRegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Password;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,7 +57,7 @@ Route::group(['middleware'=>'auth:sanctum'], function (){
 // Public routes of authentication
 Route::controller(LoginRegisterController::class)->group(function() {
     Route::post('/register', 'register');
-    Route::post('/login', 'login');
+    Route::post('/login', 'login')->name('login');
 });
 // Public routes for product
 Route::controller(ProductController::class)->group(function (){
@@ -84,5 +88,24 @@ Route::controller(CommentController::class)->group(function (){
 
 
 
+//Route::post('/forgot-password', function (Request $request) {
+//    $request->validate(['email' => 'required|email']);
+//
+//    $status = Password::sendResetLink(
+//        $request->only('email')
+//    );
+////    $status = Password::sendResetLink(
+////        $request->only('email')
+////    );
+////    dd($status);
+//    return $status === Password::RESET_LINK_SENT
+//        ? back()->with(['status' => __($status)])
+//        : back()->withErrors(['email' => __($status)]);
+//})->middleware('guest')->name('password.email');
 
 
+Route::post('password/email',  ForgotPasswordController::class);
+Route::post('password/code/check', CodeCheckController::class);
+Route::post('password/reset', ResetPasswordController::class);
+
+//Route::get('/reset-password/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
