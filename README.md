@@ -43,8 +43,30 @@ git clone https://github.com/UgoWadoux/ecom_backend.git
 ```sh
 composer install
 ```
-### 
+### Setting up the .env
 
+- Duplicate the .env.example and rename it to .env
+- In the .env modify with your database connection
+```sh
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=yourdatabasename
+DB_USERNAME=youruser
+DB_PASSWORD=yourpassword
+```
+### Migrate the database 
+```sh
+php artisan migrate
+```
+### Seeding the database
+```sh
+php artisan db:seed
+```
+### Start the server !
+```sh
+php artisan run serve
+```
 ## Using the API
 
 ### Routes
