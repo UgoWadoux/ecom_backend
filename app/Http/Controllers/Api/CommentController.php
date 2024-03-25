@@ -14,7 +14,7 @@ class CommentController extends Controller
     public function index(): JsonResponse
     {
 //        Checking for authorization
-        $this->authorize('viewAny', Comment::class);
+//        $this->authorize('viewAny', Comment::class);
 
         $comments = CommentResource::collection(Comment::all());
 
@@ -26,7 +26,7 @@ class CommentController extends Controller
     public function show($id): JsonResponse
     {
 //        Checking for authorization
-        $this->authorize('view', Comment::class);
+//        $this->authorize('view', Comment::class);
 
         $comment = CommentResource::make(Comment::find($id));
 

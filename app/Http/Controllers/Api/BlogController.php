@@ -16,7 +16,7 @@ class BlogController extends Controller
     public function index(): JsonResponse
     {
 //        Checking for authorization
-        $this->authorize('viewAny', Blog::class);
+//        $this->authorize('viewAny', Blog::class);
 
         $blogs = BlogResource::collection(Blog::all());
 
@@ -28,7 +28,7 @@ class BlogController extends Controller
     public function show($id): JsonResponse
     {
 //        Checking for authorization
-        $this->authorize('view', Blog::class);
+//        $this->authorize('view', Blog::class);
 
         $blog = BlogResource::make(Blog::find($id));
 

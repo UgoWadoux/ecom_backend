@@ -14,7 +14,7 @@ class ServiceController extends Controller
     public function index(): JsonResponse
     {
 //        Checking for authorization
-        $this->authorize('viewAny', Service::class);
+//        $this->authorize('viewAny', Service::class);
 
         $services = ServiceResource::collection(Service::all());
 
@@ -26,7 +26,7 @@ class ServiceController extends Controller
     public function show($id): JsonResponse
     {
 //        Checking for authorization
-        $this->authorize('view', Service::class);
+//        $this->authorize('view', Service::class);
 
         $service = Service::find($id);
         $service = ServiceResource::make($service);

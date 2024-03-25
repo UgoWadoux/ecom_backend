@@ -15,7 +15,7 @@ class CategoryController extends Controller
     public function index(): JsonResponse
     {
 //        Checking for authorization
-        $this->authorize('showAny', Category::class);
+//        $this->authorize('showAny', Category::class);
 
         $categories = CategoryRessource::collection(Category::all());
 
@@ -27,7 +27,7 @@ class CategoryController extends Controller
     public function show($id): JsonResponse
     {
 //        Checking for authorization
-        $this->authorize('show', Category::class);
+//        $this->authorize('show', Category::class);
 
         $category = new CategoryRessource(Category::find($id));
         $category = CategoryRessource::make($category);

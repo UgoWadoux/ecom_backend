@@ -7,16 +7,36 @@ use App\Http\Requests\ProductRequest;
 use App\Http\Resources\ProductRessource;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use OpenApi\Annotations as OA;
 
 class ProductController extends Controller
 {
+    /**
+     * @throws AuthorizationException
+     */
+    /**
+     * @OA\Info(title="My First API", version="0.1")
+     */
+    /**
+     * @OA\Get(
+     *     path="/product",
+     *     @OA\Response(response="200", description="Display a listing of projects.")
+     * )
+     */
+    /**
+     * @SWG\Get(
+     *     path="/product",
+     *     summary="Get a list of products",
+     *     tags={"Products"},
+     *     @SWG\Response(response=200, description="Successful operation"),
+     *     @SWG\Response(response=400, description="Invalid request")
+     * )
+     */
     public function index(): JsonResponse
     {
-//        Checking for authorization
-        $this->authorize('viewAny', Product::class);
-
         $products = ProductRessource::collection(Product::all());
 
         return response()->json([
