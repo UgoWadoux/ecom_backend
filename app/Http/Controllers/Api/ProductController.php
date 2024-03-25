@@ -12,27 +12,21 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use OpenApi\Annotations as OA;
 
+
 class ProductController extends Controller
 {
-    /**
-     * @throws AuthorizationException
-     */
-    /**
-     * @OA\Info(title="My First API", version="0.1")
-     */
+//    /**
+//     * @throws AuthorizationException
+//     */
+
+
     /**
      * @OA\Get(
-     *     path="/product",
-     *     @OA\Response(response="200", description="Display a listing of projects.")
-     * )
-     */
-    /**
-     * @SWG\Get(
-     *     path="/product",
+     *     path="/api/product",
      *     summary="Get a list of products",
      *     tags={"Products"},
-     *     @SWG\Response(response=200, description="Successful operation"),
-     *     @SWG\Response(response=400, description="Invalid request")
+     *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(response=400, description="Invalid request")
      * )
      */
     public function index(): JsonResponse
@@ -44,6 +38,57 @@ class ProductController extends Controller
         ]);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/product",
+     *     summary="Create a product",
+     *     @OA\Parameter(
+     *         name="name",
+     *         in = "query",
+     *         description="Product's name",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *      @OA\Parameter(
+     *          name="price",
+     *          in="query",
+     *          description="Product's price",
+     *          required=true,
+     *          @OA\Schema(type="double")
+     *      ),
+     *     @OA\Parameter(
+     *           name="description",
+     *           in="query",
+     *           description="Product's description",
+     *           required=true,
+     *           @OA\Schema(type="string")
+     *       ),
+     *     @OA\Parameter(
+     *           name="category_id",
+     *           in="query",
+     *           description="Product's category, foreign key to the category table",
+     *           required=true,
+     *           @OA\Schema(type="string")
+     *       ),
+     *     @OA\Parameter(
+     *           name="created_at",
+     *           in="query",
+     *           description="Product's creation date",
+     *           required=true,
+     *           @OA\Schema(type="timestamp")
+     *       ),
+     *     @OA\Parameter(
+     *           name="updated_at",
+     *           in="query",
+     *           description="Product's update date",
+     *           required=true,
+     *           @OA\Schema(type="timestamp")
+     *       ),
+     *     tags={"Products"},
+     *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(response=400, description="Invalid request")
+     * )
+     */
     public function store(ProductRequest $request): JsonResponse
     {
 //        Checking for authorization
