@@ -20,7 +20,7 @@ Professional can also provide services through the platform
 
 ### What are the technologies used ?
 
-The frontend part is develop in Vue.js.
+The backend part is develop in Laravel Framework based on php.
 
 ### Plugins used :
 
@@ -68,6 +68,9 @@ php artisan db:seed
 php artisan run serve
 ```
 ## Using the API
+### Swagger
+A swagger config file can be fond on /storage/api-docs/api-docs.json.
 
+You can consut it on the link : http://127.0.0.1:8000/api/documentation. (Replace  127.0.0.1 with you personnal domain)
 ### Routes
 
