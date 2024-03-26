@@ -19,6 +19,7 @@ class BlogFactory extends Factory
     {
         return [
             'content'=>$this->faker->sentence(10, true),
+            'image'=>$this->faker->imageUrl()
         ];
     }
 }

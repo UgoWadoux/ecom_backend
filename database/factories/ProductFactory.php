@@ -21,7 +21,9 @@ class ProductFactory extends Factory
             'name'=>$this->faker->word(),
             'price'=>$this->faker->numberBetween(1,200),
             'description'=>$this->faker->sentence(10, true),
-            'category_id'=>Str::uuid()
+            'category_id'=>Str::uuid(),
+            'image'=>$this->faker->imageUrl()
+
         ];
     }
 }
