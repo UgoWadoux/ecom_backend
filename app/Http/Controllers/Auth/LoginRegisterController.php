@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -13,24 +14,25 @@ class LoginRegisterController extends Controller
     /**
      * Register a new user.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+//     * @param  Http\Requests\RegisterRequest  $request
+//     * @return \Illuminate\Http\JsonResponse
      */
-    public function register(Request $request)
+    public function register(Request $request): \Illuminate\Http\JsonResponse
     {
-        $validate = Validator::make($request->all(), [
-            'name' => 'required|string|max:250',
-            'email' => 'required|string|email:rfc,dns|max:250|unique:users,email',
-            'password' => 'required|string|min:8|confirmed'
-        ]);
-
-        if($validate->fails()){
-            return response()->json([
-                'status' => 'failed',
-                'message' => 'Validation Error!',
-                'data' => $validate->errors(),
-            ], 403);
-        }
+//        $validate = Validator::make($request->all(), [
+//            'name' => 'required|string|max:250',
+//            'email' => 'required|string|email:rfc,dns|max:250|unique:users,email',
+//            'password' => 'required|string|min:8|confirmed'
+//        ]);
+//
+//        if($validate->fails()){
+//            return response()->json([
+//                'status' => 'failed',
+//                'message' => 'Validation Error!',
+//                'data' => $validate->errors(),
+//            ], 403);
+//        }
+//        dd($request);
 
         $user = User::create([
             'name' => $request->name,
