@@ -17,6 +17,7 @@ class Product extends Model
     use HasFactory, HasUuids;
 
     protected $fillable = [
+        'image',
         'name',
         'price',
         'description',

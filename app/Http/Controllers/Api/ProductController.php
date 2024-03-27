@@ -115,7 +115,7 @@ class ProductController extends Controller
     public function show($id): JsonResponse
     {
 //        Checking for authorization
-        $this->authorize('view', Product::class);
+//        $this->authorize('view', Product::class);
 
         $product = new ProductRessource(Product::find($id));
 //        dd($product);

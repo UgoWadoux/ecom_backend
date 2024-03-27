@@ -23,6 +23,7 @@ class ProductRessource extends JsonResource
             'name' => $this->resource->name,
             'price' => $this->resource->price,
             'description' => $this->resource->description,
+            'image'=> $this->resource->image,
             'category' => new CategoryRessource($this->resource->category),
             'quantity' => $this->whenPivotLoaded('order_product', function () {
                 return $this->pivot->quantity;
