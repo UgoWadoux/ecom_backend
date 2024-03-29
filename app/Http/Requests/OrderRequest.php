@@ -24,8 +24,9 @@ class OrderRequest extends FormRequest
         return [
             'deliver'=>['required', 'boolean'],
             'user_id'=>['required', 'uuid'],
-            'products'=>['nullable', 'string'],
-            'service_id'=>['string', 'uuid']
+            'products.id'=>['nullable', 'string'],
+            'products.quantity'=>['nullable', 'integer'],
+            'service_id'=>['string', 'uuid', 'nullable']
         ];
     }
 }
