@@ -17,7 +17,7 @@ class LoginRegisterController extends Controller
 //     * @param  Http\Requests\RegisterRequest  $request
 //     * @return \Illuminate\Http\JsonResponse
      */
-    public function register(Request $request): \Illuminate\Http\JsonResponse
+    public function register(RegisterRequest $request): \Illuminate\Http\JsonResponse
     {
 //        $validate = Validator::make($request->all(), [
 //            'name' => 'required|string|max:250',
