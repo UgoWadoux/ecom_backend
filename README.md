@@ -65,7 +65,7 @@ php artisan db:seed
 ```
 ### Start the server !
 ```sh
-php artisan run serve
+php artisan serve
 ```
 ## Using the API
 ### Swagger
