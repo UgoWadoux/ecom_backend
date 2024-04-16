@@ -62,18 +62,27 @@ class OrderController extends Controller
     public function update($id, OrderRequest $request): JsonResponse
     {
 //        Checking for authorization
-        $this->authorize('update', Order::class);
+
 
         $order = Order::find($id);
+        $this->authorize('update', $order);
         $order->update($request->safe()->except('products'));
 
         if (empty($order->service)) {
-            $products = $request->input('products');
-            foreach ($products as $product) {
-                $productId = $product['id'];
-                $quantity = $product['quantity'];
-                $order->products()->attach($productId, ['quantity' => $quantity]);
-            }
+//            $products = $request->input('products');
+//            foreach ($products as $product) {
+//                $productId = $product['id'];
+//                $quantity = $product['quantity'];
+//                $order->products()->update($productId, ['quantity' => $quantity]);
+//            }
+            // Extract product IDs and quantities from the request
+            $products = collect($request->input('products'))->mapWithKeys(function ($product) {
+                return [$product['id'] => ['quantity' => $product['quantity']]];
+            })->toArray();
+
+            // Sync products with the order, updating quantities as necessary
+            $order->products()->sync($products);
+
         }
 
         $order->save();
