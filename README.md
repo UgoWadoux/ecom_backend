@@ -55,6 +55,10 @@ DB_DATABASE=yourdatabasename
 DB_USERNAME=youruser
 DB_PASSWORD=yourpassword
 ```
+### Generate API KEY
+```shell
+php artisan key:generate
+```
 ### Migrate the database 
 ```sh
 php artisan migrate
@@ -64,6 +68,7 @@ php artisan migrate
 php artisan db:seed
 ```
 ### Start the server !
+
 ```sh
 php artisan serve
 ```
