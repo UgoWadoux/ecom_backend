@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\RoleValidation;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterRequest extends FormRequest
@@ -26,6 +27,7 @@ class RegisterRequest extends FormRequest
             'email' => 'required|string|email:rfc,dns|max:250|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
 //            'adress' => 'required|string|max:250'
+            'role' =>['required', new RoleValidation]
         ];
     }
 }
