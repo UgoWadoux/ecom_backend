@@ -1,0 +1,15 @@
+services:
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 'password'
+      MYSQL_USER: 'ugo'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_DATABASE: 'greenhub'
+    volumes:
+      - ./db_backend:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+
