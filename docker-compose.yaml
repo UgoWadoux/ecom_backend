@@ -3,13 +3,25 @@ services:
     image: mysql:latest
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: 'password'
-      MYSQL_USER: 'ugo'
-      MYSQL_PASSWORD: 'password'
-      MYSQL_DATABASE: 'greenhub'
+      MYSQL_ROOT_PASSWORD: "password"
+      MYSQL_USER: "ugo"
+      MYSQL_PASSWORD: "password"
+      MYSQL_DATABASE: "greenhub"
     volumes:
       - ./db_backend:/var/lib/mysql
     ports:
       - "3306:3306"
-
-
+  app:
+    image: backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      DB_CONNECTION: "mysql"
+      DB_HOST: "db"
+      DB_PORT: "3306"
+      DB_DATABASE: "greenhub"
+      DB_USERNAME: "ugo"
+      DB_PASSWORD: "password"
